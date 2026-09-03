@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Portugal">
+  <circle cx="60" cy="60" r="53" fill="#fffaf0" stroke="#143fae" stroke-width="3"/>
+  <circle cx="60" cy="60" r="47" fill="none" stroke="#e3a61b" stroke-width="2"/>
+  <clipPath id="c"><circle cx="60" cy="60" r="37"/></clipPath>
+  <g clip-path="url(#c)"><rect x="23" y="23" width="30" height="74" fill="#087a4d"/><rect x="53" y="23" width="44" height="74" fill="#c72d3b"/><circle cx="53" cy="60" r="13" fill="none" stroke="#e6b83d" stroke-width="4"/><rect x="48" y="51" width="10" height="17" rx="2" fill="#fff" stroke="#e6b83d" stroke-width="2"/></g>
+  <circle cx="60" cy="60" r="37" fill="none" stroke="#fffaf0" stroke-width="2"/>
+</svg>

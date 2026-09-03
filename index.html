@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#eef1f7" />
+  <meta name="description" content="Painel ao vivo do Campeonato de eFootball - 5 jogadores." />
+  <title>Campeonato de eFootball</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./assets/icon-192.png" />
+  <link rel="apple-touch-icon" href="./assets/icon-192.png" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero soft-card" data-esports-hero>
+      <div class="hero__identity">
+        <div class="hero__eyebrow">
+          <span class="hero__mark" aria-hidden="true"></span>
+          <span>eFootball · Temporada 2026</span>
+        </div>
+        <h1>Campeonato<br /><span>de eFootball</span></h1>
+        <p>04 set · 20:00 · Aruana Praia Residence</p>
+      </div>
+
+      <div class="hero__summary">
+        <div class="hero__actions">
+          <button id="installBtn" class="btn btn--secondary btn--compact" type="button" hidden>Instalar app</button>
+          <span id="connectionBadge" class="status-badge">Pronto</span>
+        </div>
+        <div class="hero__stats" aria-label="Resumo do campeonato">
+          <div class="hero-stat">
+            <strong id="progressValue">0 / 10</strong>
+            <span>jogos da liga</span>
+          </div>
+          <div class="hero-stat">
+            <strong>5</strong>
+            <span>participantes</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="soft-card section-card participants-section" aria-labelledby="participantsTitle">
+        <div class="section-heading">
+          <div class="section-heading__title">
+            <h2 id="participantsTitle">Participantes</h2>
+            <span class="section-kicker">Elenco</span>
+          </div>
+          <span class="section-meta">Seleções fixas</span>
+        </div>
+        <div id="playersGrid" class="players-grid"></div>
+      </section>
+
+      <section class="soft-card section-card next-match-panel" aria-labelledby="nextMatchTitle">
+        <div class="section-heading">
+          <div class="section-heading__title">
+            <h2 id="nextMatchTitle">Próximo jogo</h2>
+            <span id="phaseLabel" class="phase-chip">FASE DE LIGA</span>
+          </div>
+          <span class="section-meta"><span class="live-dot" aria-hidden="true"></span> Ao vivo</span>
+        </div>
+        <div id="nextMatchContent"></div>
+      </section>
+
+      <section class="soft-card section-card standings-section" aria-labelledby="standingsTitle">
+        <div class="section-heading">
+          <div class="section-heading__title">
+            <h2 id="standingsTitle">Classificação</h2>
+            <span class="section-kicker">Ao vivo</span>
+          </div>
+          <span class="section-meta">PTS → SG → GP → confronto direto</span>
+        </div>
+        <div class="table-wrap">
+          <table class="standings-table">
+            <thead>
+              <tr>
+                <th>#</th><th>Jogador</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>PTS</th>
+              </tr>
+            </thead>
+            <tbody id="standingsBody"></tbody>
+          </table>
+        </div>
+        <p class="standings-note">Os quatro primeiros avançam às semifinais.</p>
+      </section>
+
+      <section class="soft-card section-card matches-section" aria-labelledby="matchesTitle">
+        <div class="section-heading">
+          <div class="section-heading__title">
+            <h2 id="matchesTitle">Primeira fase</h2>
+            <span class="section-kicker">Agenda</span>
+          </div>
+          <span id="leagueStatus" class="section-meta">0 de 10 concluídos</span>
+        </div>
+        <div class="league-progress" aria-hidden="true"><span id="leagueProgressBar"></span></div>
+        <div id="matchesList" class="matches-list"></div>
+      </section>
+
+      <section class="soft-card section-card knockout-section" aria-labelledby="knockoutTitle">
+        <div class="section-heading">
+          <div class="section-heading__title">
+            <h2 id="knockoutTitle">Semifinais e final</h2>
+            <span class="section-kicker">Decisão</span>
+          </div>
+          <span class="section-meta">1º × 4º · 2º × 3º</span>
+        </div>
+        <div id="knockoutContent"></div>
+      </section>
+
+      <section class="soft-card section-card admin-section" aria-labelledby="adminTitle">
+        <div class="section-heading">
+          <div class="section-heading__title">
+            <h2 id="adminTitle">Backup e segurança</h2>
+            <span class="section-kicker">Controle</span>
+          </div>
+          <span id="savedAt" class="section-meta">Salvamento automático</span>
+        </div>
+        <div class="admin-actions">
+          <button id="exportBtn" class="btn btn--secondary" type="button">Baixar backup</button>
+          <label class="btn btn--secondary file-label" for="importInput">Restaurar backup</label>
+          <input id="importInput" type="file" accept="application/json,.json" hidden />
+          <button id="resetBtn" class="btn btn--danger" type="button">Reiniciar campeonato</button>
+        </div>
+        <p class="admin-help">Os resultados ficam salvos neste aparelho. O backup permite recuperar o campeonato em outro navegador ou dispositivo.</p>
+      </section>
+    </main>
+
+    <footer>Monte seu time · Domine o campo · Seja o campeão</footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js" defer></script>
+  <script type="module" src="./visuals.js"></script>
+</body>
+</html>
