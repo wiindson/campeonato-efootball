@@ -274,7 +274,8 @@ footer { margin: 35px 0 0; color: var(--muted-2); text-align: center; font-size:
 .room-heading h2 { margin: 7px 0 5px; color: var(--heading); font: 800 clamp(1.55rem, 4vw, 2.15rem)/1.08 var(--font-display); }
 .room-heading p { margin: 0; color: var(--muted); font-size: 12px; }
 .invite-code { flex: none; padding: 11px 14px; border-radius: 13px; color: var(--accent); background: #edf0ff; font: 700 15px/1 var(--font-display); letter-spacing: .13em; }
-.join-form { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr) auto; align-items: end; gap: 12px; margin-top: 24px; }
+.join-form { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr) auto; align-items: start; gap: 12px; margin-top: 24px; }
+.join-form > .btn { align-self: start; min-height: 45px; margin-top: 25px; }
 .code-input { text-transform: uppercase; letter-spacing: .14em; font-weight: 700; }
 .invite-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 22px; padding: 15px 17px; border-radius: 17px; background: var(--surface); }
 .invite-bar > div { min-width: 0; }
@@ -297,6 +298,7 @@ footer { margin: 35px 0 0; color: var(--muted-2); text-align: center; font-size:
   .profile-panel { align-items: flex-start; flex-direction: column; }
   .profile-panel__actions { width: 100%; justify-content: flex-start; }
   .join-form { grid-template-columns: 1fr; }
+  .join-form > .btn { margin-top: 0; }
   .online-match { grid-template-columns: 52px minmax(0,1fr); }
   .online-match .inline-score, .online-match .match-score { grid-column: 2; justify-content: flex-start; }
   .players-grid { grid-template-columns: repeat(5, 116px); overflow-x: auto; padding-bottom: 5px; }

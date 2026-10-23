@@ -68,13 +68,15 @@ O modo local está preservado em `app2.js` e no conteúdo legado de `index.html`
 
 ## Assets dos times
 
-Os SVGs das seleções são nomeados pelos países. Os clubes usam emblemas estilizados com siglas e cores, gerados pelo próprio frontend:
+Os SVGs das seleções são nomeados pelos países:
 
 - `assets/teams/portugal.svg`
 - `assets/teams/franca.svg`
 - `assets/teams/inglaterra.svg`
 - `assets/teams/brasil.svg`
 - `assets/teams/japao.svg`
+
+Os 50 clubes disponíveis no modo online possuem escudos em SVG armazenados em `assets/clubs`. Os arquivos foram obtidos do catálogo público [football-logos](https://github.com/JoseArroyave/football-logos), que declara uso livre para projetos pessoais e comerciais.
 
 ## Publicação
 

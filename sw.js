@@ -1,4 +1,4 @@
-const CACHE = 'ef-cup-v10-security';
+const CACHE = 'ef-cup-v11-club-crests';
 const ASSETS = [
   './',
   './index.html',

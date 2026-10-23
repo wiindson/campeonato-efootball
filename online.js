@@ -111,6 +111,7 @@ const team = id => TEAMS.find(item => item.id === id);
 const crest = (teamId, className = 'mini-crest') => {
   const selected = team(teamId);
   if (!selected) return '';
+  if (selected.kind === 'club') return `<img class="${className}" src="./assets/clubs/${teamId}.svg" alt="Escudo do ${escapeHtml(selected.name)}" />`;
   if (selected.asset) return `<img class="${className}" src="./assets/teams/${teamId}.svg" alt="Escudo de ${escapeHtml(selected.name)}" />`;
   return `<span class="club-crest ${className}" style="--club-primary:${selected.primary};--club-secondary:${selected.secondary}" role="img" aria-label="Emblema estilizado de ${escapeHtml(selected.name)}">${escapeHtml(selected.code)}</span>`;
 };
@@ -298,8 +299,9 @@ function renderRoom() {
   const matches = snapshot.matches || [];
   const isOwner = room.owner_id === user.id;
   const waiting = room.status === 'registration';
+  const finished = !waiting && matches.length > 0 && matches.every(match => match.status === 'finished');
   const inviteUrl = `${location.origin}${location.pathname}?c=${encodeURIComponent(room.invite_code)}`;
-  setStatus(waiting ? 'Inscrições abertas' : 'Campeonato em andamento');
+  setStatus(waiting ? 'Inscrições abertas' : finished ? 'Campeonato encerrado' : 'Campeonato em andamento');
   app.innerHTML = `<section class="soft-card section-card room-overview"><div class="room-heading"><div><span class="section-kicker">${isOwner ? 'VOCÊ É O ORGANIZADOR' : 'VOCÊ ESTÁ INSCRITO'}</span><h2>${escapeHtml(room.name)}</h2><p>${escapeHtml(competitionLabel(room.competition_type))} · ${participants.length} participante(s) · ${waiting ? 'aguardando sorteio' : `${matches.length} partidas`}</p></div><span class="invite-code">${escapeHtml(room.invite_code)}</span></div>
     <div class="invite-bar"><div><span>Convide seus amigos</span><strong>${escapeHtml(inviteUrl)}</strong></div><button id="copyInviteBtn" class="btn btn--secondary" type="button">Copiar convite</button></div>
     ${isOwner && waiting ? `<button id="drawBtn" class="btn btn--primary draw-button" type="button" ${participants.length < 2 ? 'disabled' : ''}>Sortear ${participants.length >= 2 ? `${participants.length * (participants.length - 1) / 2} confrontos` : 'confrontos'}</button>` : ''}</section>
@@ -321,8 +323,14 @@ function competitionMarkup(isOwner) {
   const standings = getStandings();
   const matches = snapshot.matches || [];
   const done = matches.filter(match => match.status === 'finished').length;
+  const champion = matches.length > 0 && done === matches.length ? standings[0] : null;
   return `<section class="soft-card section-card standings-section"><div class="section-heading"><div class="section-heading__title"><h2>Classificação</h2><span class="section-kicker">Ao vivo</span></div><span class="section-meta">${done} de ${matches.length} jogos</span></div><div class="table-wrap"><table class="standings-table"><thead><tr><th>#</th><th>Jogador</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>PTS</th></tr></thead><tbody>${standings.map((item,index) => `<tr class="${index===0?'leader':''}"><td class="rank-cell">${index+1}º</td><td><div class="player-cell">${crest(item.team_id)}<span>${escapeHtml(item.display_name)}</span></div></td><td>${item.j}</td><td>${item.v}</td><td>${item.e}</td><td>${item.d}</td><td>${item.gp}</td><td>${item.gc}</td><td>${item.sg>0?'+':''}${item.sg}</td><td class="points-cell">${item.pts}</td></tr>`).join('')}</tbody></table></div></section>
-    <section class="soft-card section-card"><div class="section-heading"><div class="section-heading__title"><h2>Confrontos</h2><span class="section-kicker">Agenda</span></div><span class="section-meta">Atualização automática</span></div><div class="matches-list">${matches.map(match => matchMarkup(match,isOwner)).join('')}</div></section>`;
+    <section class="soft-card section-card"><div class="section-heading"><div class="section-heading__title"><h2>Confrontos</h2><span class="section-kicker">Agenda</span></div><span class="section-meta">Atualização automática</span></div><div class="matches-list">${matches.map(match => matchMarkup(match,isOwner)).join('')}</div></section>
+    ${champion ? `<section class="soft-card section-card champion-section"><div class="section-heading"><div class="section-heading__title"><h2>Campeão</h2><span class="section-kicker">Campeonato encerrado</span></div></div>${championMarkup(champion)}</section>` : ''}`;
+}
+
+function championMarkup(champion) {
+  return `<div class="champion-card"><div class="crown" aria-hidden="true">🏆</div>${crest(champion.team_id, 'champion-crest')}<div><span class="section-kicker">CAMPEÃO</span><h3>${escapeHtml(champion.display_name)}</h3><p>${escapeHtml(team(champion.team_id)?.name)}</p></div></div>`;
 }
 
 function matchMarkup(match, isOwner) {
