@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#eef1f7" />
-  <meta name="description" content="Painel ao vivo do Campeonato de eFootball - 5 jogadores." />
+  <meta name="description" content="Painel dinâmico para organizar um campeonato local de eFootball." />
   <title>Campeonato de eFootball</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,8 +14,29 @@
   <link rel="apple-touch-icon" href="./assets/icon-192.png" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
-<body>
-  <div class="app-shell">
+<body class="local-mode-disabled">
+  <div class="app-shell local-disabled-shell">
+    <header class="hero soft-card online-hero">
+      <div class="hero__identity">
+        <div class="hero__eyebrow"><span class="hero__mark" aria-hidden="true"></span><span>Nosso Campeonato</span></div>
+        <h1>Modo local<br /><span>desativado</span></h1>
+        <p>Os campeonatos agora são criados e acompanhados pelo modo online.</p>
+      </div>
+      <div class="hero__summary"><span class="status-badge local-disabled-badge">Indisponível</span></div>
+    </header>
+    <main>
+      <section class="soft-card section-card local-disabled-card">
+        <div class="local-disabled-icon" aria-hidden="true">☁</div>
+        <span class="section-kicker">MODO ONLINE ATIVO</span>
+        <h2>Continue pelo campeonato online</h2>
+        <p>O modo local foi preservado no projeto, mas está temporariamente bloqueado. Seus dados locais não foram apagados.</p>
+        <a class="btn btn--primary" href="./online.html">Entrar no modo online</a>
+      </section>
+    </main>
+    <footer>Crie · Convide · Jogue · Seja campeão</footer>
+  </div>
+
+  <div class="app-shell local-app-legacy" hidden aria-hidden="true">
     <header class="hero soft-card" data-esports-hero>
       <div class="hero__identity">
         <div class="hero__eyebrow">
@@ -28,6 +49,7 @@
 
       <div class="hero__summary">
         <div class="hero__actions">
+          <a class="btn btn--secondary btn--compact" href="./online.html">Modo online</a>
           <button id="installBtn" class="btn btn--secondary btn--compact" type="button" hidden>Instalar app</button>
           <span id="connectionBadge" class="status-badge">Pronto</span>
         </div>
@@ -37,7 +59,7 @@
             <span>jogos da liga</span>
           </div>
           <div class="hero-stat">
-            <strong>5</strong>
+            <strong id="participantCount">0</strong>
             <span>participantes</span>
           </div>
         </div>
@@ -45,13 +67,24 @@
     </header>
 
     <main>
+      <section class="soft-card section-card access-section" aria-labelledby="accessTitle">
+        <div class="section-heading">
+          <div class="section-heading__title">
+            <h2 id="accessTitle">Acesse o campeonato</h2>
+            <span class="section-kicker">Seu perfil</span>
+          </div>
+          <span id="registrationStatus" class="section-meta">Inscrições abertas</span>
+        </div>
+        <div id="accessContent"></div>
+      </section>
+
       <section class="soft-card section-card participants-section" aria-labelledby="participantsTitle">
         <div class="section-heading">
           <div class="section-heading__title">
             <h2 id="participantsTitle">Participantes</h2>
             <span class="section-kicker">Elenco</span>
           </div>
-          <span class="section-meta">Seleções fixas</span>
+          <span id="participantsMeta" class="section-meta">Aguardando inscrições</span>
         </div>
         <div id="playersGrid" class="players-grid"></div>
       </section>
@@ -94,7 +127,7 @@
             <h2 id="matchesTitle">Primeira fase</h2>
             <span class="section-kicker">Agenda</span>
           </div>
-          <span id="leagueStatus" class="section-meta">0 de 10 concluídos</span>
+          <span id="leagueStatus" class="section-meta">Aguardando participantes</span>
         </div>
         <div class="league-progress" aria-hidden="true"><span id="leagueProgressBar"></span></div>
         <div id="matchesList" class="matches-list"></div>
@@ -133,7 +166,8 @@
   </div>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="./app.js" defer></script>
-  <script type="module" src="./visuals.js"></script>
+  <!-- Modo local preservado, porém desativado. Para reativar, restaure os src abaixo. -->
+  <script type="application/x-local-disabled" data-src="./app2.js"></script>
+  <script type="application/x-local-disabled" data-src="./visuals.js"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
   "name": "Campeonato de eFootball",
   "short_name": "eFootball Cup",
   "description": "Painel ao vivo para registrar placares, classificação, semifinais e final.",
-  "start_url": "./",
+  "start_url": "./online.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#eef1f7",

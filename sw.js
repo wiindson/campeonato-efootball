@@ -1,9 +1,12 @@
-const CACHE = 'ef-cup-v5-softui';
+const CACHE = 'ef-cup-v10-security';
 const ASSETS = [
   './',
   './index.html',
+  './online.html',
   './styles.css',
-  './app.js',
+  './app2.js',
+  './online.js',
+  './config.js',
   './visuals.js',
   './manifest.webmanifest',
   './assets/icon-192.png',
@@ -32,6 +35,6 @@ self.addEventListener('fetch', event => {
       const copy = response.clone();
       caches.open(CACHE).then(cache => cache.put(event.request, copy));
       return response;
-    }).catch(() => event.request.mode === 'navigate' ? caches.match('./index.html') : Response.error()))
+    }).catch(() => event.request.mode === 'navigate' ? caches.match('./online.html') : Response.error()))
   );
 });

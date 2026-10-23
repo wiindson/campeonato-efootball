@@ -36,10 +36,11 @@ async function loadAnimations() {
 
 function syncLeagueProgress() {
   const label = document.getElementById('leagueStatus')?.textContent || '';
-  const match = label.match(/(\d+)\s+de\s+10/);
+  const match = label.match(/(\d+)\s+de\s+(\d+)/);
   const done = match ? Number(match[1]) : 0;
+  const total = match ? Number(match[2]) : 0;
   const bar = document.getElementById('leagueProgressBar');
-  if (bar) bar.style.width = `${Math.max(0, Math.min(100, done * 10))}%`;
+  if (bar) bar.style.width = `${total ? Math.max(0, Math.min(100, done / total * 100)) : 0}%`;
 }
 
 syncLeagueProgress();
